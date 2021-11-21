@@ -1,4 +1,3 @@
-export const a = 11
-export const ab = () => {
-  console.log(a)
-}
+import { WorkerCommunicator } from './libs/worker/index-worker'
+
+export default WorkerCommunicator

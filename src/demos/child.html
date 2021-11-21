@@ -12,9 +12,12 @@
 </body>
 <script type="module">
   const Transponder = window.Transponder.default
-  const aa = new Transponder().on('message', (e) => {
-    console.log('aa received bb data: ', e.data)
+  const bb = new Transponder({ isolated: false })
+  bb.on('message', (e) => {
+    console.log('bb received aa data: ', e.data)
   })
-  aa.send('a')
+  setInterval(() => {
+    bb.send('b')
+  }, 2000)
 </script>
 </html>

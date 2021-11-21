@@ -3,5 +3,6 @@
   "extends": "standard",
   "plugins": [
     "html"
-  ]
+  ],
+  "ignorePatterns": ["build/*.js", "node_modules/"]
 }

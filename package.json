@@ -1,10 +1,10 @@
 {
-  "name": "web_tab_transponder",
+  "name": "web-tab-transponder",
   "version": "0.0.1",
-  "description": "web_tab_transponder",
-  "main": "index.js",
+  "description": "web-tab-transponder",
+  "main": "build/transponder.js",
   "scripts": {
-    "dev": "webpack-dev-server --mode development --hot",
+    "dev": "webpack --mode=development & webpack-dev-server",
     "build": "webpack --mode=production",
     "lint": "eslint --ext .js src/",
     "lint-fix": "eslint --fix --ext .js src",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lihanqiang/web_tab_transponder.git"
+    "url": "git+https://github.com/lihanqiang/web-tab-transponder.git"
   },
   "keywords": [
     "browser",
@@ -28,10 +28,13 @@
   ],
   "author": "Jack Lee",
   "license": "Apache",
+  "files": [
+    "build"
+  ],
   "bugs": {
-    "url": "https://github.com/lihanqiang/web_tab_transponder/issues"
+    "url": "https://github.com/lihanqiang/web-tab-transponder/issues"
   },
-  "homepage": "https://github.com/lihanqiang/web_tab_transponder#readme",
+  "homepage": "https://github.com/lihanqiang/web-tab-transponder#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.1.0",
@@ -46,6 +49,8 @@
     "eslint-plugin-standard": "^5.0.0",
     "webpack": "^5.64.1",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.5.0"
-  }
+    "webpack-dev-server": "^4.5.0",
+    "worker-loader": "^3.0.8"
+  },
+  "dependencies": {}
 }

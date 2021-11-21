@@ -1,35 +1,63 @@
-/* eslint-disable no-undef */
+import { EVENT_NAMES } from '../constants'
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import Sharedworker from 'worker-loader!./sharedWorker.js'
 
-const EVENT_NAMES = [
-  'open',
-  'error',
-  'message'
-]
+let _options = {}
 
 export class WorkerCommunicator {
-  constructor (isModule = false) {
-    this.isModule = isModule
-    this.worker = this.initWorker()
+  constructor (options = { isolated: true }) {
+    options.communicatorId = Math.random()
+    _options = options
+    if (!WorkerCommunicator.instance) {
+      this.initWorker()
+      WorkerCommunicator.instance = this
+    }
+    return WorkerCommunicator.instance
   }
 
   initWorker () {
-    return new SharedWorker('./sharedWorker.js', { module: this.isModule })
+    // eslint-disable-next-line no-undef
+    if (SharedWorker) {
+      // eslint-disable-next-line no-undef
+      this.worker = new Sharedworker()
+    } else {
+      throw new Error('"SharedWorker" is not supported in this environment!')
+    }
+    return this
   }
 
-  postMessage () {
+  send (data) {
     if (this.worker) {
-      this.worker.postMessage('any', {})
+      this.worker.postMessage({
+        _communicatorId: _options.communicatorId,
+        data
+      })
     }
+    return this
   }
 
   on (eventName, callback = () => {}) {
-    if (EVENT_NAMES.includes(eventName)) {
+    if (~EVENT_NAMES.indexOf(eventName)) {
       if (this.worker) {
-        this.worker['on' + eventName] = callback
+        if (_options.isolated) {
+          this.worker.addEventListener(eventName, function (...args) {
+            const context = this
+            const event = args[0]
+            if (event) {
+              const { _communicatorId } = event.data
+              if (_communicatorId === _options.communicatorId) {
+                callback.apply(context, args)
+              }
+            }
+          })
+        } else {
+          this.worker.addEventListener(eventName, callback)
+        }
       }
     } else {
       console.warn(`eventName: ${eventName} is not available here, use one of ${EVENT_NAMES} instead.`)
     }
+    return this
   }
 
   destory () {

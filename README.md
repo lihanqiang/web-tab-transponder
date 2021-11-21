@@ -1,2 +1,2 @@
-# web_tab_transponder
-web_tab_transponder
+# web-tab-transponder
+web-tab-transponder
