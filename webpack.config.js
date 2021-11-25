@@ -48,7 +48,7 @@ const config = {
 
 module.exports = (env, { mode }) => {
   if (mode === 'development') {
-    config.devtool = 'source-map'
+    config.devtool = 'eval-source-map'
   }
   return config
 }
