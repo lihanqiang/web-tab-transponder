@@ -9,13 +9,13 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/babel-loader/lib/index.js!./src/libs/worker/sharedWorker.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js!./src/libs/worker/sharedWorker.js ***!
-  \**********************************************************************************/
+/***/ "./src/libs/worker/shared.worker.js":
+/*!******************************************!*\
+  !*** ./src/libs/worker/shared.worker.js ***!
+  \******************************************/
 /***/ (() => {
 
-eval("/* eslint-disable no-undef */\nonmessage = e => {\n  postMessage(e.data);\n};//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9UcmFuc3BvbmRlci8uL3NyYy9saWJzL3dvcmtlci9zaGFyZWRXb3JrZXIuanM/Zjk2NCJdLCJuYW1lcyI6WyJvbm1lc3NhZ2UiLCJlIiwicG9zdE1lc3NhZ2UiLCJkYXRhIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUNBQSxZQUFhQyxDQUFELElBQU87QUFDakJDLGNBQVlELEVBQUVFLElBQWQ7QUFDRCxDQUZEIiwiZmlsZSI6Ii4vbm9kZV9tb2R1bGVzL2JhYmVsLWxvYWRlci9saWIvaW5kZXguanMhLi9zcmMvbGlicy93b3JrZXIvc2hhcmVkV29ya2VyLmpzLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXNDb250ZW50IjpbIi8qIGVzbGludC1kaXNhYmxlIG5vLXVuZGVmICovXHJcbm9ubWVzc2FnZSA9IChlKSA9PiB7XHJcbiAgcG9zdE1lc3NhZ2UoZS5kYXRhKVxyXG59XHJcbiJdfQ==\n//# sourceURL=webpack-internal:///./node_modules/babel-loader/lib/index.js!./src/libs/worker/sharedWorker.js\n");
+eval("/* eslint-disable no-undef */\r\nonmessage = (e) => {\r\n  postMessage(e.data)\r\n}\r\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvbGlicy93b3JrZXIvc2hhcmVkLndvcmtlci5qcy5qcyIsIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQSIsInNvdXJjZXMiOlsid2VicGFjazovL1RyYW5zcG9uZGVyLy4vc3JjL2xpYnMvd29ya2VyL3NoYXJlZC53b3JrZXIuanM/Mjk0OCJdLCJzb3VyY2VzQ29udGVudCI6WyIvKiBlc2xpbnQtZGlzYWJsZSBuby11bmRlZiAqL1xyXG5vbm1lc3NhZ2UgPSAoZSkgPT4ge1xyXG4gIHBvc3RNZXNzYWdlKGUuZGF0YSlcclxufVxyXG4iXSwibmFtZXMiOltdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./src/libs/worker/shared.worker.js\n");
 
 /***/ })
 
@@ -26,7 +26,7 @@ eval("/* eslint-disable no-undef */\nonmessage = e => {\n  postMessage(e.data);\
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval-source-map devtool is used.
 /******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__["./node_modules/babel-loader/lib/index.js!./src/libs/worker/sharedWorker.js"]();
+/******/ 	__webpack_modules__["./src/libs/worker/shared.worker.js"]();
 /******/ 	
 /******/ })()
 ;

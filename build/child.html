@@ -11,9 +11,9 @@
 </body>
 <script type="module">
   const Transponder = window.Transponder.default
-  const bb = new Transponder({ isolated: false })
-  bb.on('message', (e) => {
-    console.log('bb received aa data: ', e.data)
+  const bb = new Transponder()
+  bb.onMessage((e) => {
+    console.log('bb received aa data: ', e)
   })
   setInterval(() => {
     bb.send('b')

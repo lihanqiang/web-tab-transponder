@@ -1,18 +1,12 @@
-import { EVENT_NAMES } from '../constants'
-// eslint-disable-next-line import/no-webpack-loader-syntax
-import Sharedworker from 'worker-loader!./sharedWorker.js'
-
-let _options = {}
+import Sharedworker from './shared.worker.js'
+import getUrlPathObj from '../utils/getUrlPath'
 
 export class WorkerCommunicator {
   constructor (options = { isolated: true }) {
-    options.communicatorId = Math.random()
-    _options = options
-    if (!WorkerCommunicator.instance) {
-      this.initWorker()
-      WorkerCommunicator.instance = this
-    }
-    return WorkerCommunicator.instance
+    const { pathname } = getUrlPathObj()
+    this.options = options
+    this.communicatorId = pathname
+    this.initWorker()
   }
 
   initWorker () {
@@ -20,49 +14,41 @@ export class WorkerCommunicator {
     if (SharedWorker) {
       // eslint-disable-next-line no-undef
       this.worker = new Sharedworker()
+      this.worker.port.start()
+      this.worker.port.postMessage({ id: this.communicatorId })
     } else {
       throw new Error('"SharedWorker" is not supported in this environment!')
     }
     return this
   }
 
-  send (data) {
+  send (pathname, data) {
     if (this.worker) {
-      this.worker.postMessage({
-        _communicatorId: _options.communicatorId,
-        data
-      })
+      this.worker.port.postMessage([pathname, { data, from: getUrlPathObj() }])
     }
     return this
   }
 
-  on (eventName, callback = () => {}) {
-    if (~EVENT_NAMES.indexOf(eventName)) {
-      if (this.worker) {
-        if (_options.isolated) {
-          this.worker.addEventListener(eventName, function (...args) {
-            const context = this
-            const event = args[0]
-            if (event) {
-              const { _communicatorId } = event.data
-              if (_communicatorId === _options.communicatorId) {
-                callback.apply(context, args)
-              }
-            }
-          })
-        } else {
-          this.worker.addEventListener(eventName, callback)
+  onMessage (callback = () => {}) {
+    if (this.worker) {
+      this.worker.port.addEventListener('message', (...args) => {
+        if (args[0]) {
+          const [pathname, remoteData] = args[0].data
+          const buildArgs = { data: remoteData.data, from: remoteData.from }
+          if (this.options.isolated) {
+            pathname === this.communicatorId && callback.call(this, buildArgs)
+          } else {
+            callback.call(this, buildArgs)
+          }
         }
-      }
-    } else {
-      console.warn(`eventName: ${eventName} is not available here, use one of ${EVENT_NAMES} instead.`)
+      })
     }
     return this
   }
 
   destory () {
     if (this.worker) {
-      this.worker.terminate()
+      this.worker.port.close()
     }
   }
 }

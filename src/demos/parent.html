@@ -11,9 +11,9 @@
 </body>
 <script type="module">
   const Transponder = window.Transponder.default
-  const aa = new Transponder().on('message', (e) => {
-    console.log('aa received bb data: ', e.data)
+  const aa = new Transponder().onMessage((e) => {
+    console.log('aa received bb data: ', e)
   })
-  aa.send('a')
+  aa.send('/child.html', 'a')
 </script>
 </html>
