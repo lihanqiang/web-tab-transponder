@@ -1,29 +1,31 @@
-const list = []
-const listId = []
-// eslint-disable-next-line no-undef
+/* eslint-disable no-undef */
+const portLists = []
+const idLists = []
+
+// send message
+const sendMsg = (id, data) => {
+  portLists.forEach(port => {
+    port.postMessage([id, data])
+  })
+}
+
 onconnect = function (e) {
-  const port = e.ports[0]
-  port.addEventListener('message', function (e) {
+  const [port] = e.ports
+  port.addEventListener('message', (e) => {
     if (e.data.id) {
-      const index = listId.indexOf(e.data.id)
-      if (index === -1) {
-        list.push(port)
-        listId.push(e.data.id)
+      const index = idLists.indexOf(e.data.id)
+      // add port list
+      if (index < 0) {
+        portLists.push(port)
+        idLists.push(e.data.id)
       } else {
-        // 关闭上个链接
-        list[index].close()
-        list[index] = port
+        // close prev connect
+        portLists[index].close()
+        portLists[index] = port
       }
     } else {
-      send(e.data[0], e.data[1])
+      sendMsg(e.data[0], e.data[1])
     }
   })
   port.start()
-}
-
-const send = function (id, data) {
-  const index = listId.indexOf(id)
-  if (index !== -1) {
-    list[index].postMessage([id, data])
-  }
 }

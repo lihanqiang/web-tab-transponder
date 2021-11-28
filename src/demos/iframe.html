@@ -10,12 +10,10 @@
 </body>
 <script type="module">
   const Transponder = window.Transponder.default
-  const bb = new Transponder('child')
-  bb.onMessage((e) => {
-    console.log('child received data: ', e)
+  const ff = new Transponder('iframe')
+  ff.onMessage((e) => {
+    console.log('iframe received data: ', e)
   })
-  setInterval(() => {
-    bb.send('b', 'parent')
-  }, 2000)
+  ff.send('b', 'child')
 </script>
 </html>

@@ -29,7 +29,8 @@ const config = {
                     chrome: '67',
                     safari: '11.1'
                   },
-                  useBuiltIns: 'usage'
+                  useBuiltIns: 'usage',
+                  corejs: 3
                 }
               ]
             ],
@@ -65,6 +66,11 @@ const config = {
       template: 'src/demos/child.html',
       title: 'child',
       filename: 'child.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/demos/iframe.html',
+      title: 'iframe',
+      filename: 'iframe.html'
     })
   ],
   devServer: {

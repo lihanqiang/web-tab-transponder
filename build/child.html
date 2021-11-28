@@ -7,16 +7,15 @@
   <title>test</title>
 <script defer src="transponder.js"></script></head>
 <body>
-  
 </body>
 <script type="module">
   const Transponder = window.Transponder.default
-  const bb = new Transponder()
+  const bb = new Transponder('child')
   bb.onMessage((e) => {
-    console.log('bb received aa data: ', e)
+    console.log('child received data: ', e)
   })
-  setInterval(() => {
-    bb.send('b')
-  }, 2000)
+  // setInterval(() => {
+  //   bb.send('b', 'iframe')
+  // }, 2000)
 </script>
 </html>

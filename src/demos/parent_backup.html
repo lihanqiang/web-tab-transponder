@@ -7,15 +7,13 @@
   <title>test</title>
 </head>
 <body>
+  <iframe src="./iframe.html" frameborder="0"></iframe>
 </body>
 <script type="module">
   const Transponder = window.Transponder.default
-  const bb = new Transponder('child')
-  bb.onMessage((e) => {
-    console.log('child received data: ', e)
+  const aa = new Transponder('parent').onMessage((e) => {
+    console.log('parent received data: ', e)
   })
-  setInterval(() => {
-    bb.send('b', 'parent')
-  }, 2000)
+  aa.send('a', ['parent', 'child'])
 </script>
 </html>
