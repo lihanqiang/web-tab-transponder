@@ -9,13 +9,14 @@
 <body>
 </body>
 <script type="module">
-  const Transponder = window.Transponder.default
+  const Transponder = window.Transponder
   const bb = new Transponder('child')
   bb.onMessage((e) => {
     console.log('child received data: ', e)
   })
   setInterval(() => {
     bb.send('b', 'parent')
+    bb.destory()
   }, 2000)
 </script>
 </html>

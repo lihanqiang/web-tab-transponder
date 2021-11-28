@@ -10,10 +10,10 @@
   <!-- <iframe src="./iframe.html" frameborder="0"></iframe> -->
 </body>
 <script type="module">
-  const Transponder = window.Transponder.default
+  const Transponder = window.Transponder
   const aa = new Transponder('parent').onMessage((e) => {
     console.log('parent received data: ', e)
   })
-  aa.send('fsdf')
+  aa.send('fsdf', [])
 </script>
 </html>

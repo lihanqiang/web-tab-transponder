@@ -57,21 +57,21 @@ const config = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: 'src/demos/parent.html',
-      title: 'parent',
-      filename: 'parent.html'
-    }),
-    new HtmlWebpackPlugin({
-      template: 'src/demos/child.html',
-      title: 'child',
-      filename: 'child.html'
-    }),
-    new HtmlWebpackPlugin({
-      template: 'src/demos/iframe.html',
-      title: 'iframe',
-      filename: 'iframe.html'
-    })
+    // new HtmlWebpackPlugin({
+    //   template: 'src/demos/parent.html',
+    //   title: 'parent',
+    //   filename: 'parent.html'
+    // }),
+    // new HtmlWebpackPlugin({
+    //   template: 'src/demos/child.html',
+    //   title: 'child',
+    //   filename: 'child.html'
+    // }),
+    // new HtmlWebpackPlugin({
+    //   template: 'src/demos/iframe.html',
+    //   title: 'iframe',
+    //   filename: 'iframe.html'
+    // })
   ],
   devServer: {
     bonjour: true,

@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 
 // get page type
-export const getpagetype = () => {
+const getpagetype = () => {
   let pagetype = 'page'
   if (frames && parent && frames.length !== parent.frames.length) {
     pagetype = 'iframe'

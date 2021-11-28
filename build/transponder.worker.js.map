@@ -1,1 +1,0 @@
-{"version":3,"file":"transponder.worker.js","mappings":";;;;;AAAA;AACAA,YAAaC,CAAD,IAAO;AACjBC,cAAYD,EAAEE,IAAd;AACD,CAFD,C","sources":["webpack://Transponder/./src/libs/worker/sharedWorker.js"],"sourcesContent":["/* eslint-disable no-undef */\r\nonmessage = (e) => {\r\n  postMessage(e.data)\r\n}\r\n"],"names":["onmessage","e","postMessage","data"],"sourceRoot":""}

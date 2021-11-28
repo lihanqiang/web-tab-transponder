@@ -9,7 +9,7 @@
 <body>
 </body>
 <script type="module">
-  const Transponder = window.Transponder.default
+  const Transponder = window.Transponder
   const ff = new Transponder('iframe')
   ff.onMessage((e) => {
     console.log('iframe received data: ', e)
