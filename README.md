@@ -58,3 +58,52 @@ childPage.send('I am child', ['parent'])
 ```
 
 ### API：
+<table style="width: 100%; text-align: center" border="1">
+<tr>
+  <th style="text-align: center; width: 30%;">参数/方法</th>
+  <th style="text-align: center; width: 30%;">必填</th>
+  <th style="text-align: center; width: 40%;">示例</th>
+</tr>
+<tr>
+  <td>id: String</td>
+  <td>true</td>
+  <td>创建一个Transponder实例：const transponder = new Transponder('id')，创建多个实例时，请使用不同的id！</td>
+</tr>
+</table>
+
+### 实例方法：
+<table style="width: 100%; text-align: center" border="1">
+<tr>
+  <th style="text-align: center; width: 10%;">方法</th>
+  <th style="text-align: center; width: 20%;">参数</th>
+  <th style="text-align: center; width: 30%;">说明</th>
+  <th style="text-align: center; width: 40%;">示例</th>
+</tr>
+<tr>
+  <td>send</td>
+  <td>send(data: any, toId?: String[] | String): void</td>
+  <td>向其他页面（或iframe）发送数据，toId为你发送的transponder的id或id数组</td>
+  <td>transponder.send(any, ['parent']); transponder.send(any, 'child'); transponder.send(any)</td>
+</tr>
+<tr>
+  <td>onMessage</td>
+  <td>onMessage(callback?: Function): void</td>
+  <td>接收数据的回调函数，形参为{ data, from }</td>
+  <td>transponder.onMessage(({ data, from }) => {
+    console.log('parent received data: ', { data, from })
+  }</td>
+</tr>
+<tr>
+  <td>destory</td>
+  <td>destory(): void</td>
+  <td>销毁transponder实例</td>
+  <td>transponder.destroy()</td>
+</tr>
+</table>
+
+##### 注：form的数据格式为：{ href, pathname, hostname, port, protocol, hash, search, pagetype, id }，其中href, pathname, hostname, port, protocol, hash, search为父页面的[location](https://developer.mozilla.org/en-US/docs/Web/API/Location)解构，pagetype为：page/iframe，id为父页面的id。
+
+### TIPS：
+* #### 本插件的所有实现都建立在浏览器的[同源策略](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)下，不同源的网页或iframe无法使用；
+* #### 本项目是纯前端的多页面交互方案，若对数据量和性能有要求，请使用http、websocket等技术；
+* #### 要向对象页面传递数据前，要确保对象页面已经加载完成！
