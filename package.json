@@ -1,6 +1,6 @@
 {
   "name": "web-tab-transponder",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "web-tab-transponder",
   "main": "build/transponder.js",
   "scripts": {
@@ -27,8 +27,8 @@
     "util",
     "plugin"
   ],
-  "author": "Jack Lee",
-  "license": "Apache",
+  "author": "chnsjack",
+  "license": "Apache-2.0",
   "files": [
     "build"
   ],
@@ -57,6 +57,5 @@
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.5.0",
     "worker-loader": "^3.0.8"
-  },
-  "dependencies": {}
+  }
 }

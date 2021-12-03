@@ -1,6 +1,6 @@
 # web-tab-transponder
 
-#### `web-tab-transponder`插件是一个浏览器多标签的交流工具。使用[SharedWorker](https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker)和[localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)包装，可满足web多标签、多iframe的通信需求。
+### `web-tab-transponder`插件是一个浏览器多标签的交流工具。使用[SharedWorker](https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker)和[localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)包装，可满足web多标签、多iframe的通信需求。
 -----------------
 ### 特点：
 
@@ -27,10 +27,12 @@ const Transponder = require("web-tab-transponder")
 * 标签
 
 ```html
-<script type="text/javascript" src="*/build/transponder.js"></script>
+<script type="text/javascript" src="**/build/transponder.js"></script>
 
-<!-- use Transponder as global variable  -->
-const T = window.Transponder
+<script type="module">
+  // use Transponder as global variable 
+  const T = window.Transponder
+</script>
 ```
 
 ### 使用：
@@ -101,7 +103,7 @@ childPage.send('I am child', ['parent'])
 </tr>
 </table>
 
-##### 注：form的数据格式为：{ href, pathname, hostname, port, protocol, hash, search, pagetype, id }，其中href, pathname, hostname, port, protocol, hash, search为父页面的[location](https://developer.mozilla.org/en-US/docs/Web/API/Location)解构，pagetype为：page/iframe，id为父页面的id。
+#### 注：form的数据格式为：{ href, pathname, hostname, port, protocol, hash, search, pagetype, id }，其中href, pathname, hostname, port, protocol, hash, search为父页面的[location](https://developer.mozilla.org/en-US/docs/Web/API/Location)解构，pagetype为：page/iframe，id为父页面的id。
 
 ### TIPS：
 * #### 本插件的所有实现都建立在浏览器的[同源策略](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)下，不同源的网页或iframe无法使用；

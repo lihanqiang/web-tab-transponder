@@ -313,10 +313,10 @@ eval("var _sliceInstanceProperty = __webpack_require__(/*! @babel/runtime-corejs
 /*!******************************************!*\
   !*** ./src/libs/worker/shared.worker.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-eval("\n\nvar _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs3/core-js-stable/object/define-property */ \"./node_modules/@babel/runtime-corejs3/core-js-stable/object/define-property.js\");\n\n_Object$defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nexports[\"default\"] = SharedWorker_fn;\n\nfunction SharedWorker_fn() {\n  return new SharedWorker(__webpack_require__.p + \"transponder.worker.js\");\n}//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvbGlicy93b3JrZXIvc2hhcmVkLndvcmtlci5qcy5qcyIsIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7O0FBQWUsU0FBU0EsZUFBVCxHQUEyQjtBQUN4QyxTQUFPLElBQUlDLFlBQUosQ0FBaUJDLHFCQUF1QixHQUFHLHVCQUEzQyxDQUFQO0FBQ0QiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9UcmFuc3BvbmRlci8uL3NyYy9saWJzL3dvcmtlci9zaGFyZWQud29ya2VyLmpzPzI5NDgiXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gU2hhcmVkV29ya2VyX2ZuKCkge1xuICByZXR1cm4gbmV3IFNoYXJlZFdvcmtlcihfX3dlYnBhY2tfcHVibGljX3BhdGhfXyArIFwidHJhbnNwb25kZXIud29ya2VyLmpzXCIpO1xufVxuIl0sIm5hbWVzIjpbIlNoYXJlZFdvcmtlcl9mbiIsIlNoYXJlZFdvcmtlciIsIl9fd2VicGFja19wdWJsaWNfcGF0aF9fIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./src/libs/worker/shared.worker.js\n");
+eval("\n\nmodule.exports = function SharedWorker_fn() {\n  return new SharedWorker(__webpack_require__.p + \"transponder.worker.js\");\n};//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvbGlicy93b3JrZXIvc2hhcmVkLndvcmtlci5qcy5qcyIsIm1hcHBpbmdzIjoiOztBQUFBQSxNQUFNLENBQUNDLE9BQVAsR0FBaUIsU0FBU0MsZUFBVCxHQUEyQjtBQUMxQyxTQUFPLElBQUlDLFlBQUosQ0FBaUJDLHFCQUF1QixHQUFHLHVCQUEzQyxDQUFQO0FBQ0QsQ0FGRCIsInNvdXJjZXMiOlsid2VicGFjazovL1RyYW5zcG9uZGVyLy4vc3JjL2xpYnMvd29ya2VyL3NoYXJlZC53b3JrZXIuanM/Mjk0OCJdLCJzb3VyY2VzQ29udGVudCI6WyJtb2R1bGUuZXhwb3J0cyA9IGZ1bmN0aW9uIFNoYXJlZFdvcmtlcl9mbigpIHtcbiAgcmV0dXJuIG5ldyBTaGFyZWRXb3JrZXIoX193ZWJwYWNrX3B1YmxpY19wYXRoX18gKyBcInRyYW5zcG9uZGVyLndvcmtlci5qc1wiKTtcbn1cbiJdLCJuYW1lcyI6WyJtb2R1bGUiLCJleHBvcnRzIiwiU2hhcmVkV29ya2VyX2ZuIiwiU2hhcmVkV29ya2VyIiwiX193ZWJwYWNrX3B1YmxpY19wYXRoX18iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./src/libs/worker/shared.worker.js\n");
 
 /***/ }),
 
@@ -3207,6 +3207,7 @@ eval("\nvar call = __webpack_require__(/*! ../internals/function-call */ \"./nod
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
 /******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
+/******/ 	__webpack_exports__ = __webpack_exports__["default"];
 /******/ 	
 /******/ 	return __webpack_exports__;
 /******/ })()

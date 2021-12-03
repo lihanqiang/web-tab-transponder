@@ -6,6 +6,7 @@ const config = {
   output: {
     filename: 'transponder.js',
     path: path.resolve(__dirname, 'build'),
+    libraryExport: 'default',
     library: 'Transponder',
     libraryTarget: 'umd'
   },
@@ -13,7 +14,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /(\.js?|jsx?)$/,
+        test: /(\.js?)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -50,28 +51,29 @@ const config = {
         use: {
           loader: 'worker-loader',
           options: {
-            worker: 'SharedWorker'
+            worker: 'SharedWorker',
+            esModule: false
           }
         }
       }
     ]
   },
   plugins: [
-    // new HtmlWebpackPlugin({
-    //   template: 'src/demos/parent.html',
-    //   title: 'parent',
-    //   filename: 'parent.html'
-    // }),
-    // new HtmlWebpackPlugin({
-    //   template: 'src/demos/child.html',
-    //   title: 'child',
-    //   filename: 'child.html'
-    // }),
-    // new HtmlWebpackPlugin({
-    //   template: 'src/demos/iframe.html',
-    //   title: 'iframe',
-    //   filename: 'iframe.html'
-    // })
+    new HtmlWebpackPlugin({
+      template: 'src/demos/parent.html',
+      title: 'parent',
+      filename: 'parent.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/demos/child.html',
+      title: 'child',
+      filename: 'child.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/demos/iframe.html',
+      title: 'iframe',
+      filename: 'iframe.html'
+    })
   ],
   devServer: {
     bonjour: true,
