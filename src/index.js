@@ -4,10 +4,11 @@ import StorageTransponder from './libs/localStorage'
 
 const Transponder = () => {
   let Transponder
-  if (typeof SharedWorker === 'function') {
-    Transponder = WorkerTransponder
-  } else if (typeof localStorage === 'object') {
+  if (typeof localStorage === 'object') {
     Transponder = StorageTransponder
+  } else if (typeof SharedWorker === 'function') {
+    // worker has some problem in SPA TODO
+    Transponder = WorkerTransponder
   }
   if (!Transponder) {
     throw new Error('this tool does not support this environment!')

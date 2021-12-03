@@ -12,6 +12,7 @@
   const Transponder = window.Transponder
   const bb = new Transponder('child')
   bb.onMessage((e) => {
+    // never reach, case destroyed!
     console.log('child received data: ', e)
   })
   bb.send('c', 'parent')

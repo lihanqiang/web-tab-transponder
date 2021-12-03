@@ -1,8 +1,6 @@
-declare enum pageTypes {
-  'page',
-  'iframe'
-}
-declare interface messageDataType {
+type pageTypes = "page" | "iframe"
+
+type messageDataType = {
   data: any,
   from: {
     id: String,
