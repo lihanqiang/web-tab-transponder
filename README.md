@@ -1,21 +1,26 @@
+[English](./README.md) / [中文](./README_zh_CN.md)
+
 # web-tab-transponder
 
-### `web-tab-transponder`插件是一个浏览器多标签的交流工具。使用[SharedWorker](https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker)和[localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)包装，可满足web多标签、多iframe的通信需求。
+### `web-tab-transponder` is a browser tabs(or iframes) communication tool, which is built with [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
 -----------------
-### 特点：
+### Features:
 
-* #### 兼容性良好，可在chrome、firefox、edge、IE8+等浏览器运行；
+* #### It runs well in Chrome, Firefox, Edge, IE8+ and other browsers;
 
-* #### 引入方式灵活，项目使用webpack构建UMD格式代码，可作为es6 module、commonjs模块、script标签等形式引入；
+* #### The project uses Webpack to build UMD format codes, which can be imported as ES6 module, CommonJS module, script tag and other forms;
 
-* #### 简单易用的api。
+* #### Easy-to-use API.
 
-### 安装：
-使用npm（或yarn）进行安装，或直接使用`<script>`标签引入。
+### The installation:
+Using NPM (or YARN) tool to install, or import directly with the `<script>` tag.
 
-* 模块
+* Module
 ```javascript
-npm install web-tab-transponder --save or (yarn add web-tab-transponder)
+// npm/yarn
+npm install web-tab-transponder --save
+// or 
+yarn add web-tab-transponder
 
 // es6 module
 import Transponder from "web-tab-transponder"
@@ -24,10 +29,14 @@ import Transponder from "web-tab-transponder"
 const Transponder = require("web-tab-transponder")
 ```
 
-* 标签
+* Tag
 
 ```html
+<!-- Offline： -->
 <script type="text/javascript" src="**/build/transponder.js"></script>
+
+<!-- Online： -->
+<script type="text/javascript" src="https://unpkg.com/web-tab-transponder@0.3.0/build/transponder.js"></script>
 
 <script type="module">
   // use Transponder as global variable 
@@ -35,7 +44,7 @@ const Transponder = require("web-tab-transponder")
 </script>
 ```
 
-### 使用：
+### Using:
 ```javascript
 // in page "parent"
 import Transponder from "web-tab-transponder"
@@ -44,7 +53,7 @@ const parentPage = new Transponder('parent').onMessage((e) => {
   console.log('parent received data: ', e)
 })
 
-// 发送到id为"child"的页面，数据为"I am parent"
+// send data to page "child", data is "I am parent"
 parentPage.send('I am parent', ['child'])
 ```
 ```javascript
@@ -55,42 +64,42 @@ const childPage = new Transponder('child').onMessage((e) => {
   console.log('child received data: ', e)
 })
 
-// 发送到id为"parent"的页面，数据为"I am child"
+// send data to page "parent", data is "I am child"
 childPage.send('I am child', ['parent'])
 ```
 
 ### API：
 <table style="width: 100%; text-align: center" border="1">
 <tr>
-  <th style="text-align: center; width: 30%;">参数/方法</th>
-  <th style="text-align: center; width: 30%;">必填</th>
-  <th style="text-align: center; width: 40%;">示例</th>
+  <th style="text-align: center; width: 30%;">params</th>
+  <th style="text-align: center; width: 30%;">required</th>
+  <th style="text-align: center; width: 40%;">e.g. </th>
 </tr>
 <tr>
   <td>id: String</td>
   <td>true</td>
-  <td>创建一个Transponder实例：const transponder = new Transponder('id')，创建多个实例时，请使用不同的id！</td>
+  <td>to build a instance of Transponder: const transponder = new Transponder('id'), if you want  to build multiple instance, please use different  id!</td>
 </tr>
 </table>
 
-### 实例方法：
+### Instance methods:
 <table style="width: 100%; text-align: center" border="1">
 <tr>
-  <th style="text-align: center; width: 10%;">方法</th>
-  <th style="text-align: center; width: 20%;">参数</th>
-  <th style="text-align: center; width: 30%;">说明</th>
-  <th style="text-align: center; width: 40%;">示例</th>
+  <th style="text-align: center; width: 10%;">method</th>
+  <th style="text-align: center; width: 20%;">param</th>
+  <th style="text-align: center; width: 30%;">desc</th>
+  <th style="text-align: center; width: 40%;">e.g.</th>
 </tr>
 <tr>
   <td>send</td>
   <td>send(data: any, toId?: String[] | String): void</td>
-  <td>向其他页面（或iframe）发送数据，toId为你发送的transponder的id或id数组</td>
+  <td>send data to other page(or iframe), param toId is a string[] or string, which has used in other transponder</td>
   <td>transponder.send(any, ['parent']); transponder.send(any, 'child'); transponder.send(any)</td>
 </tr>
 <tr>
   <td>onMessage</td>
   <td>onMessage(callback?: Function): void</td>
-  <td>接收数据的回调函数，形参为{ data, from }</td>
+  <td>callback of data receiving, param is ({ data, from })</td>
   <td>transponder.onMessage(({ data, from }) => {
     console.log('parent received data: ', { data, from })
   }</td>
@@ -98,14 +107,14 @@ childPage.send('I am child', ['parent'])
 <tr>
   <td>destory</td>
   <td>destory(): void</td>
-  <td>销毁transponder实例</td>
+  <td>destory the instance of Transponder</td>
   <td>transponder.destroy()</td>
 </tr>
 </table>
 
-#### 注：form的数据格式为：{ href, pathname, hostname, port, protocol, hash, search, pagetype, id }，其中href, pathname, hostname, port, protocol, hash, search为父页面的[location](https://developer.mozilla.org/en-US/docs/Web/API/Location)解构，pagetype为：page/iframe，id为父页面的id。
+#### attention: the pattern of `form` is: { href, pathname, hostname, port, protocol, hash, search, pagetype, id }, `href, pathname, hostname, port, protocol, hash, search` is parent page's [location](https://developer.mozilla.org/en-US/docs/Web/API/Location) deconstruction, `pagetype` is one of page/iframe, `id` is parent page's id.
 
 ### TIPS：
-* #### 本插件的所有实现都建立在浏览器的[同源策略](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)下，不同源的网页或iframe无法使用；
-* #### 本项目是纯前端的多页面交互方案，若对数据量和性能有要求，请使用http、websocket等技术；
-* #### 要向对象页面传递数据前，要确保对象页面已经加载完成！
+* #### All implementations of this tool are built in the browser [same-origin](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) policy, it can not work if your page is from different site;
+* #### This project is a pure front-end multi-page interaction scheme. If you have requirements on data volume and performance, please use HTTP, Websocket and other technologies;
+* #### Before passing data to the target page, make sure the target page has been loaded!
