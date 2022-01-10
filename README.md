@@ -32,11 +32,11 @@ const Transponder = require("web-tab-transponder")
 * Tag
 
 ```html
-<!-- Offline： -->
+<!-- Offline: -->
 <script type="text/javascript" src="**/build/transponder.js"></script>
 
-<!-- Online： -->
-<script type="text/javascript" src="https://unpkg.com/web-tab-transponder@0.3.0/build/transponder.js"></script>
+<!-- Online: -->
+<script type="text/javascript" src="https://unpkg.com/web-tab-transponder"></script>
 
 <script type="module">
   // use Transponder as global variable 
@@ -55,6 +55,8 @@ const parentPage = new Transponder('parent').onMessage((e) => {
 
 // send data to page "child", data is "I am parent"
 parentPage.send('I am parent', ['child'])
+// or send data to other page, each page of domain will receive data 'I am parent'
+parentPage.send('I am parent')
 ```
 ```javascript
 // in page "child"
@@ -66,9 +68,11 @@ const childPage = new Transponder('child').onMessage((e) => {
 
 // send data to page "parent", data is "I am child"
 childPage.send('I am child', ['parent'])
+  // or send data to other page, each page of domain will receive data
+childPage.send('I am child')
 ```
 
-### API：
+### API:
 <table style="width: 100%; text-align: center" border="1">
 <tr>
   <th style="text-align: center; width: 30%;">params</th>
@@ -93,7 +97,7 @@ childPage.send('I am child', ['parent'])
 <tr>
   <td>send</td>
   <td>send(data: any, toId?: String[] | String): void</td>
-  <td>send data to other page(or iframe), param toId is a string[] or string, which has used in other transponder</td>
+  <td>send data to other page(or iframe), param toId is a string[] or string, which has used in other transponder, toId is optional, default will send data to each page of domain.</td>
   <td>transponder.send(any, ['parent']); transponder.send(any, 'child'); transponder.send(any)</td>
 </tr>
 <tr>
@@ -114,7 +118,7 @@ childPage.send('I am child', ['parent'])
 
 #### attention: the pattern of `form` is: { href, pathname, hostname, port, protocol, hash, search, pagetype, id }, `href, pathname, hostname, port, protocol, hash, search` is parent page's [location](https://developer.mozilla.org/en-US/docs/Web/API/Location) deconstruction, `pagetype` is one of page/iframe, `id` is parent page's id.
 
-### TIPS：
+### TIPS:
 * #### All implementations of this tool are built in the browser [same-origin](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) policy, it can not work if your page is from different site;
 * #### This project is a pure front-end multi-page interaction scheme. If you have requirements on data volume and performance, please use HTTP, Websocket and other technologies;
 * #### Before passing data to the target page, make sure the target page has been loaded!

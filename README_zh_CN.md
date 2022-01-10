@@ -35,7 +35,7 @@ const Transponder = require("web-tab-transponder")
 <script type="text/javascript" src="**/build/transponder.js"></script>
 
 <!-- Online： -->
-<script type="text/javascript" src="https://unpkg.com/web-tab-transponder@0.2.0/build/transponder.js"></script>
+<script type="text/javascript" src="https://unpkg.com/web-tab-transponder"></script>
 
 <script type="module">
   // use Transponder as global variable 
@@ -54,6 +54,8 @@ const parentPage = new Transponder('parent').onMessage((e) => {
 
 // 发送到id为"child"的页面，数据为"I am parent"
 parentPage.send('I am parent', ['child'])
+// 发送到其他页面，数据为"I am parent"
+parentPage.send('I am parent')
 ```
 ```javascript
 // in page "child"
@@ -65,6 +67,8 @@ const childPage = new Transponder('child').onMessage((e) => {
 
 // 发送到id为"parent"的页面，数据为"I am child"
 childPage.send('I am child', ['parent'])
+// 发送到其他页面，数据为"I am child"
+childPage.send('I am child')
 ```
 
 ### API：
@@ -92,7 +96,7 @@ childPage.send('I am child', ['parent'])
 <tr>
   <td>send</td>
   <td>send(data: any, toId?: String[] | String): void</td>
-  <td>向其他页面（或iframe）发送数据，toId为你发送的transponder的id或id数组</td>
+  <td>向其他页面（或iframe）发送数据，toId为你发送的transponder的id或id数组，toid可以缺省，默认会向其他主域下的页面发送数据</td>
   <td>transponder.send(any, ['parent']); transponder.send(any, 'child'); transponder.send(any)</td>
 </tr>
 <tr>
