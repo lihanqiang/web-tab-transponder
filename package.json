@@ -30,7 +30,9 @@
   "author": "chnsjack",
   "license": "Apache-2.0",
   "files": [
-    "build"
+    "build",
+    "README.md",
+    "README_zh_CN.md"
   ],
   "bugs": {
     "url": "https://github.com/lihanqiang/web-tab-transponder/issues"
