@@ -154,4 +154,4 @@ StorageTransponder.prototype.destory = function () {
   this.destoryed = true
 }
 
-export default StorageTransponder
+window.Transponder = StorageTransponder

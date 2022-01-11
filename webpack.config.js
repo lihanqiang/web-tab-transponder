@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require(require.resolve('html-webpack-plugin'))
+const CopyWebpackPlugin = require(require.resolve('copy-webpack-plugin'))
 
 const config = {
   entry: './src/index.js',
@@ -8,56 +9,12 @@ const config = {
     path: path.resolve(__dirname, 'build'),
     libraryExport: 'default',
     library: 'Transponder',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    environment: {
+      arrowFunction: false
+    }
   },
   mode: 'development',
-  module: {
-    rules: [
-      {
-        test: /(\.js?)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  targets: {
-                    ie: '7',
-                    edge: '17',
-                    firefox: '60',
-                    chrome: '67',
-                    safari: '11.1'
-                  },
-                  useBuiltIns: 'usage',
-                  corejs: 3
-                }
-              ]
-            ],
-            plugins: [
-              [
-                '@babel/plugin-transform-runtime',
-                {
-                  corejs: 3
-                }
-              ]
-            ]
-          }
-        }
-      },
-      {
-        test: /\.worker\.js$/,
-        use: {
-          loader: 'worker-loader',
-          options: {
-            worker: 'SharedWorker',
-            esModule: false
-          }
-        }
-      }
-    ]
-  },
   plugins: [
     new HtmlWebpackPlugin({
       template: 'src/demos/parent.html',
@@ -73,6 +30,14 @@ const config = {
       template: 'src/demos/iframe.html',
       title: 'iframe',
       filename: 'iframe.html'
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/transponder-IE.js'),
+          to: path.resolve(__dirname, 'build')
+        }
+      ]
     })
   ],
   devServer: {
