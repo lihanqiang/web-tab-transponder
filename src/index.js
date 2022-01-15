@@ -6,51 +6,6 @@ var storageKey
 var msgCallback
 
 // utils
-if (!Function.prototype.apply) {
-  Function.prototype.apply = function (obj, args) {
-    var i = 0; var ary = []; var str
-    if (args) {
-      for (var len = args.length; i < len; i++) {
-        ary[i] = 'args[' + i + ']'
-      }
-    }
-    obj._apply = this
-    str = 'obj._apply(' + ary.join(',') + ')'
-    try {
-      return eval(str)
-    } catch (e) {
-    } finally {
-      delete obj._apply
-    }
-  }
-}
-
-if (!Function.prototype.call) {
-  Function.prototype.call = function (obj) {
-    var i = 1; var args = []
-    for (var len = arguments.length; i < len; i++) {
-      args[i - 1] = arguments[i]
-    }
-    return this.apply(obj, args)
-  }
-}
-
-function addEvent (event, fn) {
-  if (window.addEventListener) {
-    window.addEventListener(event, fn)
-  } else {
-    window.attachEvent('on' + event, fn)
-  }
-}
-
-function removeEvent (event, fn) {
-  if (window.removeEventListener) {
-    window.removeEventListener(event, fn)
-  } else {
-    window.detachEvent('on' + event, fn)
-  }
-}
-
 function setLocal (key, val) {
   window.localStorage.setItem(key, JSON.stringify(val))
 }
@@ -145,12 +100,12 @@ StorageTransponder.prototype.messageListener = function (e) {
 
 StorageTransponder.prototype.onMessage = function (callback) {
   msgCallback = callback || function () {}
-  addEvent('storage', this.messageListener)
+  window.addEventListener('storage', this.messageListener)
   return this
 }
 
 StorageTransponder.prototype.destory = function () {
-  removeEvent('storage', this.messageListener)
+  window.addEventListener('storage', this.messageListener)
   this.destoryed = true
 }
 

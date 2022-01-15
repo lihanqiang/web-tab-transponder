@@ -1,9 +1,23 @@
+/* eslint-disable prefer-regex-literals */
 /* eslint-disable no-eval */
 /* eslint-disable no-var */
 /* eslint-disable no-extend-native */
 var thisId
 var storageKey
 var msgCallback
+
+function getIEVersion () {
+  var reIE = new RegExp('MSIE (\\d+\\.\\d+);')
+  var match = window.navigator.userAgent.match(reIE)
+  var fIEVersion = parseInt(match && match[1])
+  return fIEVersion
+}
+
+var IEV = getIEVersion()
+
+if (IEV !== 8 && IEV !== 9) {
+  throw new Error('this file is only suit for IE8 or IE9!')
+}
 
 // utils
 if (!Function.prototype.apply) {
@@ -35,19 +49,33 @@ if (!Function.prototype.call) {
   }
 }
 
+if (!Function.prototype.bind) {
+  Function.prototype.bind = function () {
+    if (typeof this !== 'function') {
+      throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable')
+    }
+    var _this = this
+    var obj = arguments[0]
+    var ags = Array.prototype.slice.call(arguments, 1)
+    return function () {
+      _this.apply(obj, ags)
+    }
+  }
+}
+
 function addEvent (event, fn) {
-  if (window.addEventListener) {
-    window.addEventListener(event, fn)
+  if (IEV === 8) {
+    document.attachEvent('on' + event, fn.bind(document))
   } else {
-    window.attachEvent('on' + event, fn)
+    window.addEventListener(event, fn)
   }
 }
 
 function removeEvent (event, fn) {
-  if (window.removeEventListener) {
-    window.removeEventListener(event, fn)
+  if (IEV === 8) {
+    document.detachEvent('on' + event, fn.bind(document))
   } else {
-    window.detachEvent('on' + event, fn)
+    window.removeEventListener(event, fn)
   }
 }
 
@@ -125,22 +153,24 @@ StorageTransponder.prototype.send = function (transferData, toId) {
 }
 
 StorageTransponder.prototype.messageListener = function (e) {
-  var key = e.key
-  var newValue = e.newValue
-  var parsedData = JSON.parse(newValue)
-  if (key === storageKey && parsedData && parsedData.random) {
-    var transferId = parsedData.transferId
-    var data = parsedData.data
-    var from = parsedData.from
-    var buildArgs = { data: data, from: from }
-    // filter data except self
-    var fromId = from.id
-    if (transferId) {
-      fromId !== thisId && transferId === thisId && msgCallback.call(this, buildArgs)
-    } else {
-      fromId !== thisId && msgCallback.call(this, buildArgs)
+  setTimeout(function () {
+    var key = storageKey
+    var newValue = window.localStorage.getItem(storageKey)
+    var parsedData = JSON.parse(newValue)
+    if (key === storageKey && parsedData && parsedData.random) {
+      var transferId = parsedData.transferId
+      var data = parsedData.data
+      var from = parsedData.from
+      var buildArgs = { data: data, from: from }
+      // filter data except self
+      var fromId = from.id
+      if (transferId) {
+        fromId !== thisId && transferId === thisId && msgCallback.call(this, buildArgs)
+      } else {
+        fromId !== thisId && msgCallback.call(this, buildArgs)
+      }
     }
-  }
+  }, 0)
 }
 
 StorageTransponder.prototype.onMessage = function (callback) {

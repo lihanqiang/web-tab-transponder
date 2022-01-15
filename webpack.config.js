@@ -11,7 +11,8 @@ const config = {
     library: 'Transponder',
     libraryTarget: 'umd',
     environment: {
-      arrowFunction: false
+      arrowFunction: false,
+      const: false
     }
   },
   mode: 'development',

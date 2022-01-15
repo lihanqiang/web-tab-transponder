@@ -1,6 +1,6 @@
 {
   "name": "web-tab-transponder",
-  "version": "0.4.2",
+  "version": "1.0.0",
   "description": "web-tab-transponder",
   "main": "build/transponder.js",
   "scripts": {

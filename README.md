@@ -40,12 +40,12 @@ const Transponder = require("web-tab-transponder")
 <!-- Online: -->
 <script type="text/javascript" src="https://unpkg.com/web-tab-transponder"></script>
 
-<script type="module">
+<script type="text/javascript">
   // use Transponder as global variable 
   const T = window.Transponder
 </script>
 
-<!-- for IE -->
+<!-- for IE8/9 -->
 <script type="text/javascript" src="https://unpkg.com/web-tab-transponder/build/transponder-IE.js"></script>
 ```
 
