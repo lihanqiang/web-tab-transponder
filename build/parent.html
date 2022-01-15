@@ -1,5 +1,19 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>test</title><script defer="defer" src="transponder.js"></script></head><body></body><script type="module">const Transponder = window.Transponder
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>test</title>
+<script defer src="transponder.js"></script></head>
+<body>
+  <!-- <iframe src="./iframe.html" frameborder="0"></iframe> -->
+</body>
+<script type="module">
+  const Transponder = window.Transponder
   const aa = new Transponder('parent').onMessage((e) => {
     console.log('parent received data: ', e)
   })
-  aa.send('p', ['child'])</script></html>
+  aa.send('p', ['child'])
+</script>
+</html>

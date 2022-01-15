@@ -1,1 +1,187 @@
-var thisId,storageKey,msgCallback;function getIEVersion(){var t=new RegExp("MSIE (\\d+\\.\\d+);"),o=window.navigator.userAgent.match(t);return parseInt(o&&o[1])}var IEV=getIEVersion();if(8!==IEV&&9!==IEV)throw new Error("this file is only suit for IE8 or IE9!");function addEvent(t,o){8===IEV?document.attachEvent("on"+t,o.bind(document)):window.addEventListener(t,o)}function removeEvent(t,o){8===IEV?document.detachEvent("on"+t,o.bind(document)):window.removeEventListener(t,o)}function setLocal(t,o){window.localStorage.setItem(t,JSON.stringify(o))}function getpagetype(){var t="page";return window.frames&&window.parent&&window.frames.length!==window.parent.frames.length&&(t="iframe"),t}function getPageData(){return window.location?{href:window.location.href,pathname:window.location.pathname,hostname:window.location.hostname,port:window.location.port,protocol:window.location.protocol,hash:window.location.hash,search:window.location.search,pagetype:getpagetype()}:{}}function StorageTransponder(t){if("string"!=typeof t||!t)throw new Error('the param "id" is required, which is a string, but not ""!');if(thisId=t,this.destoryed=!1,storageKey="__&&transponderKeydoNotDelete&&__","object"!=typeof localStorage)throw new Error('"localStorage" is not supported in this environment!')}Function.prototype.apply||(Function.prototype.apply=function(obj,args){var i=0,ary=[],str;if(args)for(var len=args.length;i<len;i++)ary[i]="args["+i+"]";obj._apply=this,str="obj._apply("+ary.join(",")+")";try{return eval(str)}catch(t){}finally{delete obj._apply}}),Function.prototype.call||(Function.prototype.call=function(t){for(var o=1,e=[],r=arguments.length;o<r;o++)e[o-1]=arguments[o];return this.apply(t,e)}),Function.prototype.bind||(Function.prototype.bind=function(){if("function"!=typeof this)throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");var t=this,o=arguments[0],e=Array.prototype.slice.call(arguments,1);return function(){t.apply(o,e)}}),StorageTransponder.prototype.send=function(t,o){if(this.destoryed)throw new Error("this instance has been destoryed!");var e=getPageData();if(void 0!==o)for(var r=o instanceof Array?o:[o],n=0;n<r.length;n++){var a=r[n];if("string"!=typeof a||!a)throw new Error('param "toId" is Array<string> or just a string, but not a ""!');e.id=thisId,setLocal(storageKey,{random:Math.random(),transferId:a,data:t,from:e})}else setLocal(storageKey,{random:Math.random(),transferId:void 0,data:t,from:e});return this},StorageTransponder.prototype.messageListener=function(t){setTimeout((function(){var t=storageKey,o=window.localStorage.getItem(storageKey),e=JSON.parse(o);if(t===storageKey&&e&&e.random){var r=e.transferId,n=e.data,a=e.from,i={data:n,from:a},s=a.id;r?s!==thisId&&r===thisId&&msgCallback.call(this,i):s!==thisId&&msgCallback.call(this,i)}}),0)},StorageTransponder.prototype.onMessage=function(t){return msgCallback=t||function(){},addEvent("storage",this.messageListener),this},StorageTransponder.prototype.destory=function(){removeEvent("storage",this.messageListener),this.destoryed=!0},window.Transponder=StorageTransponder;
+/* eslint-disable prefer-regex-literals */
+/* eslint-disable no-eval */
+/* eslint-disable no-var */
+/* eslint-disable no-extend-native */
+var thisId
+var storageKey
+var msgCallback
+
+function getIEVersion () {
+  var reIE = new RegExp('MSIE (\\d+\\.\\d+);')
+  var match = window.navigator.userAgent.match(reIE)
+  var fIEVersion = parseInt(match && match[1])
+  return fIEVersion
+}
+
+var IEV = getIEVersion()
+
+if (IEV !== 8 && IEV !== 9) {
+  throw new Error('this file is only suit for IE8 or IE9!')
+}
+
+// utils
+if (!Function.prototype.apply) {
+  Function.prototype.apply = function (obj, args) {
+    var i = 0; var ary = []; var str
+    if (args) {
+      for (var len = args.length; i < len; i++) {
+        ary[i] = 'args[' + i + ']'
+      }
+    }
+    obj._apply = this
+    str = 'obj._apply(' + ary.join(',') + ')'
+    try {
+      return eval(str)
+    } catch (e) {
+    } finally {
+      delete obj._apply
+    }
+  }
+}
+
+if (!Function.prototype.call) {
+  Function.prototype.call = function (obj) {
+    var i = 1; var args = []
+    for (var len = arguments.length; i < len; i++) {
+      args[i - 1] = arguments[i]
+    }
+    return this.apply(obj, args)
+  }
+}
+
+if (!Function.prototype.bind) {
+  Function.prototype.bind = function () {
+    if (typeof this !== 'function') {
+      throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable')
+    }
+    var _this = this
+    var obj = arguments[0]
+    var ags = Array.prototype.slice.call(arguments, 1)
+    return function () {
+      _this.apply(obj, ags)
+    }
+  }
+}
+
+function addEvent (event, fn) {
+  if (IEV === 8) {
+    document.attachEvent('on' + event, fn.bind(document))
+  } else {
+    window.addEventListener(event, fn)
+  }
+}
+
+function removeEvent (event, fn) {
+  if (IEV === 8) {
+    document.detachEvent('on' + event, fn.bind(document))
+  } else {
+    window.removeEventListener(event, fn)
+  }
+}
+
+function setLocal (key, val) {
+  window.localStorage.setItem(key, JSON.stringify(val))
+}
+
+function getpagetype () {
+  var pagetype = 'page'
+  if (window.frames && window.parent && window.frames.length !== window.parent.frames.length) {
+    pagetype = 'iframe'
+  }
+  return pagetype
+}
+
+function getPageData () {
+  if (window.location) {
+    var href = window.location.href
+    var pathname = window.location.pathname
+    var hostname = window.location.hostname
+    var port = window.location.port
+    var protocol = window.location.protocol
+    var hash = window.location.hash
+    var search = window.location.search
+    return { href: href, pathname: pathname, hostname: hostname, port: port, protocol: protocol, hash: hash, search: search, pagetype: getpagetype() }
+  } else {
+    return {}
+  }
+}
+
+// StorageTransponder class
+function StorageTransponder (id) {
+  if (typeof id !== 'string' || !id) {
+    throw new Error('the param "id" is required, which is a string, but not ""!')
+  }
+  thisId = id
+  this.destoryed = false
+  // localStorage key do not delete!
+  storageKey = '__&&transponderKeydoNotDelete&&__'
+  if (typeof localStorage !== 'object') {
+    throw new Error('"localStorage" is not supported in this environment!')
+  }
+}
+
+StorageTransponder.prototype.send = function (transferData, toId) {
+  if (this.destoryed) {
+    throw new Error('this instance has been destoryed!')
+  }
+  var pageData = getPageData()
+  if (toId !== undefined) {
+    var idList = toId instanceof Array ? toId : [toId]
+    for (var i = 0; i < idList.length; i++) {
+      var transferId = idList[i]
+      if (typeof transferId === 'string' && transferId) {
+        pageData.id = thisId
+        setLocal(storageKey, {
+          random: Math.random(),
+          transferId: transferId,
+          data: transferData,
+          from: pageData
+        })
+      } else {
+        throw new Error('param "toId" is Array<string> or just a string, but not a ""!')
+      }
+    }
+  } else {
+    setLocal(storageKey, {
+      random: Math.random(),
+      transferId: undefined,
+      data: transferData,
+      from: pageData
+    })
+  }
+  return this
+}
+
+StorageTransponder.prototype.messageListener = function (e) {
+  setTimeout(function () {
+    var key = storageKey
+    var newValue = window.localStorage.getItem(storageKey)
+    var parsedData = JSON.parse(newValue)
+    if (key === storageKey && parsedData && parsedData.random) {
+      var transferId = parsedData.transferId
+      var data = parsedData.data
+      var from = parsedData.from
+      var buildArgs = { data: data, from: from }
+      // filter data except self
+      var fromId = from.id
+      if (transferId) {
+        fromId !== thisId && transferId === thisId && msgCallback.call(this, buildArgs)
+      } else {
+        fromId !== thisId && msgCallback.call(this, buildArgs)
+      }
+    }
+  }, 0)
+}
+
+StorageTransponder.prototype.onMessage = function (callback) {
+  msgCallback = callback || function () {}
+  addEvent('storage', this.messageListener)
+  return this
+}
+
+StorageTransponder.prototype.destory = function () {
+  removeEvent('storage', this.messageListener)
+  this.destoryed = true
+}
+
+window.Transponder = StorageTransponder
