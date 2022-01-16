@@ -2,19 +2,19 @@
 
 # web-tab-transponder
 
-### `web-tab-transponder` is a browser tabs(or iframes) communication tool, which is built with [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
+### `web-tab-transponder` is a browser tab(or iframe) communication tool, which is built with [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
 -----------------
 ### Features:
 
 * #### It runs well in Chrome, Firefox, Edge, IE8+ and other browsers;
 
-* #### The project uses Webpack to build UMD format codes, which can be imported as ES6 module, CommonJS module, script tag and other forms;
+* #### This project uses Webpack to build UMD format codes, which can be imported as ES6 module, CommonJS module, script tag and other forms;
 
-* #### Mini size(only 3KB).
+* #### Mini size(base version is 1KB, IE8/9 version is 3KB).
 
 * #### Easy-to-use API.
 
-### The installation:
+### Installation:
 Using NPM (or YARN) tool to install, or import directly with the `<script>` tag.
 
 * Module
@@ -47,9 +47,13 @@ const Transponder = require("web-tab-transponder")
 
 <!-- for IE8/9 -->
 <script type="text/javascript" src="https://unpkg.com/web-tab-transponder/build/transponder-IE.js"></script>
+
+<script type="text/javascript">
+  // use Transponder as global variable 
+  const T = window.Transponder
 ```
 
-### Using:
+### Usage:
 ```javascript
 // in page "parent"
 import Transponder from "web-tab-transponder"
@@ -60,7 +64,7 @@ const parentPage = new Transponder('parent').onMessage((e) => {
 
 // send data to page "child", data is "I am parent"
 parentPage.send('I am parent', ['child'])
-// or send data to other page, each page of domain will receive data 'I am parent'
+// or send data to other page, each page of domain (except self) will receive data 'I am parent'
 parentPage.send('I am parent')
 ```
 ```javascript
@@ -73,7 +77,7 @@ const childPage = new Transponder('child').onMessage((e) => {
 
 // send data to page "parent", data is "I am child"
 childPage.send('I am child', ['parent'])
-  // or send data to other page, each page of domain will receive data
+// or send data to other page, each page of domain (except self) will receive data 'I am child'
 childPage.send('I am child')
 ```
 
@@ -87,7 +91,7 @@ childPage.send('I am child')
 <tr>
   <td>id: String</td>
   <td>true</td>
-  <td>to build a instance of Transponder: const transponder = new Transponder('id'), if you want  to build multiple instance, please use different  id!</td>
+  <td>to build a instance of Transponder: const transponder = new Transponder('id'), if you want to build multiple instance, please use different id!</td>
 </tr>
 </table>
 
@@ -102,7 +106,7 @@ childPage.send('I am child')
 <tr>
   <td>send</td>
   <td>send(data: any, toId?: String[] | String): void</td>
-  <td>send data to other page(or iframe), param toId is a string[] or string, which has used in other transponder, toId is optional, default will send data to each page of domain.</td>
+  <td>send data to other page(or iframe), param toId is a string[] or string, which has used in other transponder, toId is optional, default will send data to each page (except self) of domain.</td>
   <td>transponder.send(any, ['parent']); transponder.send(any, 'child'); transponder.send(any)</td>
 </tr>
 <tr>
@@ -124,6 +128,6 @@ childPage.send('I am child')
 #### attention: the pattern of `form` is: { href, pathname, hostname, port, protocol, hash, search, pagetype, id }, `href, pathname, hostname, port, protocol, hash, search` is parent page's [location](https://developer.mozilla.org/en-US/docs/Web/API/Location) deconstruction, `pagetype` is one of page/iframe, `id` is parent page's id.
 
 ### TIPS:
-* #### All implementations of this tool are built in the browser [same-origin](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) policy, it can not work if your page is from different site;
+* #### All implementations of this tool are built in the browser [same-origin](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) policy, it can not work if your page is from different sites;
 * #### This project is a pure front-end multi-page interaction scheme. If you have requirements on data volume and performance, please use HTTP, Websocket and other technologies;
 * #### Before passing data to the target page, make sure the target page has been loaded!

@@ -10,7 +10,7 @@
 
 * #### 引入方式灵活，项目使用webpack构建UMD格式代码，可作为es6 module、commonjs模块、script标签等形式引入；
 
-* #### 大小只有3KB。
+* #### 大小只有1KB，兼容IE8、IE9版本3KB。
 
 * #### 简单易用的api。
 
@@ -46,11 +46,16 @@ const Transponder = require("web-tab-transponder")
 
 <!-- for IE8/9 -->
 <script type="text/javascript" src="https://unpkg.com/web-tab-transponder/build/transponder-IE.js"></script>
+
+<script type="text/javascript">
+  // use Transponder as global variable 
+  const T = window.Transponder
+</script>
 ```
 
 ### 使用：
 ```javascript
-// in page "parent"
+// id为"parent"的页面
 import Transponder from "web-tab-transponder"
 
 const parentPage = new Transponder('parent').onMessage((e) => {
@@ -62,8 +67,9 @@ parentPage.send('I am parent', ['child'])
 // 发送到其他页面，数据为"I am parent"
 parentPage.send('I am parent')
 ```
+
 ```javascript
-// in page "child"
+// id为"child"的页面
 import Transponder from "web-tab-transponder"
 
 const childPage = new Transponder('child').onMessage((e) => {
@@ -101,7 +107,7 @@ childPage.send('I am child')
 <tr>
   <td>send</td>
   <td>send(data: any, toId?: String[] | String): void</td>
-  <td>向其他页面（或iframe）发送数据，toId为你发送的transponder的id或id数组，toid可以缺省，默认会向其他主域下的页面发送数据</td>
+  <td>向其他页面（或iframe）发送数据，toId为你发送的transponder的id或id数组，toId可以缺省，默认会向主域下的其他页面（本页面不会响应，即触发onMessage回调）发送数据</td>
   <td>transponder.send(any, ['parent']); transponder.send(any, 'child'); transponder.send(any)</td>
 </tr>
 <tr>
