@@ -10,7 +10,7 @@
 
 * #### This project uses Webpack to build UMD format codes, which can be imported as ES6 module, CommonJS module, script tag and other forms;
 
-* #### Mini size(base version is 1KB, IE8/9 version is 3KB).
+* #### Mini size(base version is 1KB, IE8 version is 3KB).
 
 * #### Easy-to-use API.
 
@@ -42,15 +42,15 @@ const Transponder = require("web-tab-transponder")
 
 <script type="text/javascript">
   // use Transponder as global variable 
-  const T = window.Transponder
+  const Transponder = window.Transponder
 </script>
 
-<!-- for IE8/9 -->
+<!-- for IE8 -->
 <script type="text/javascript" src="https://unpkg.com/web-tab-transponder/build/transponder-IE.js"></script>
 
 <script type="text/javascript">
   // use Transponder as global variable 
-  const T = window.Transponder
+  var Transponder = window.Transponder
 </script>
 ```
 

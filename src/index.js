@@ -1,6 +1,4 @@
-/* eslint-disable no-eval */
 /* eslint-disable no-var */
-/* eslint-disable no-extend-native */
 var thisId
 var storageKey
 var msgCallback
@@ -49,15 +47,15 @@ function StorageTransponder (id) {
 
 StorageTransponder.prototype.send = function (transferData, toId) {
   if (this.destoryed) {
-    throw new Error('this instance has been destoryed!')
+    throw new Error('the instance "' + thisId + '" has been destoryed!')
   }
   var pageData = getPageData()
+  pageData.id = thisId
   if (toId !== undefined) {
     var idList = toId instanceof Array ? toId : [toId]
     for (var i = 0; i < idList.length; i++) {
       var transferId = idList[i]
       if (typeof transferId === 'string' && transferId) {
-        pageData.id = thisId
         setLocal(storageKey, {
           random: Math.random(),
           transferId: transferId,
@@ -80,20 +78,22 @@ StorageTransponder.prototype.send = function (transferData, toId) {
 }
 
 StorageTransponder.prototype.messageListener = function (e) {
-  var key = e.key
-  var newValue = e.newValue
-  var parsedData = JSON.parse(newValue)
-  if (key === storageKey && parsedData && parsedData.random) {
-    var transferId = parsedData.transferId
-    var data = parsedData.data
-    var from = parsedData.from
-    var buildArgs = { data: data, from: from }
-    // filter data except self
-    var fromId = from.id
-    if (transferId) {
-      fromId !== thisId && transferId === thisId && msgCallback.call(this, buildArgs)
-    } else {
-      fromId !== thisId && msgCallback.call(this, buildArgs)
+  if (!this.destoryed) {
+    var key = e.key
+    var newValue = e.newValue
+    var parsedData = JSON.parse(newValue)
+    if (key === storageKey && newValue && parsedData && parsedData.random) {
+      var transferId = parsedData.transferId
+      var data = parsedData.data
+      var from = parsedData.from
+      var buildArgs = { data: data, from: from }
+      // filter data except self
+      var fromId = from.id
+      if (transferId) {
+        fromId !== thisId && transferId === thisId && msgCallback.call(this, buildArgs)
+      } else {
+        fromId !== thisId && msgCallback.call(this, buildArgs)
+      }
     }
   }
 }
@@ -105,7 +105,7 @@ StorageTransponder.prototype.onMessage = function (callback) {
 }
 
 StorageTransponder.prototype.destory = function () {
-  window.addEventListener('storage', this.messageListener)
+  window.removeEventListener('storage', this.messageListener)
   this.destoryed = true
 }
 

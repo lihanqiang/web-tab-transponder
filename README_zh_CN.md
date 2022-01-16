@@ -10,7 +10,7 @@
 
 * #### 引入方式灵活，项目使用webpack构建UMD格式代码，可作为es6 module、commonjs模块、script标签等形式引入；
 
-* #### 大小只有1KB，兼容IE8、IE9版本3KB。
+* #### 大小只有1KB，兼容IE8版本3KB。
 
 * #### 简单易用的api。
 
@@ -41,15 +41,15 @@ const Transponder = require("web-tab-transponder")
 
 <script type="text/javascript">
   // use Transponder as global variable 
-  const T = window.Transponder
+  const Transponder = window.Transponder
 </script>
 
-<!-- for IE8/9 -->
+<!-- for IE8 -->
 <script type="text/javascript" src="https://unpkg.com/web-tab-transponder/build/transponder-IE.js"></script>
 
 <script type="text/javascript">
   // use Transponder as global variable 
-  const T = window.Transponder
+  var Transponder = window.Transponder
 </script>
 ```
 
