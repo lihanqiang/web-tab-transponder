@@ -51,6 +51,7 @@ const Transponder = require("web-tab-transponder")
 <script type="text/javascript">
   // use Transponder as global variable 
   const T = window.Transponder
+</script>
 ```
 
 ### Usage:
