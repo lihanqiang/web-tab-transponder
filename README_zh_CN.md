@@ -126,7 +126,7 @@ childPage.send('I am child')
 </tr>
 </table>
 
-#### 注：form的数据格式为：{ href, pathname, hostname, port, protocol, hash, search, pagetype, id }，其中href, pathname, hostname, port, protocol, hash, search为父页面的[location](https://developer.mozilla.org/en-US/docs/Web/API/Location)解构，pagetype为：page/iframe，id为父页面的id。
+#### 注：`e.from`的数据格式为：`{ href, pathname, hostname, port, protocol, hash, search, pagetype, id }`，其中`href, pathname, hostname, port, protocol, hash, search`为父页面的[location](https://developer.mozilla.org/en-US/docs/Web/API/Location)解构，pagetype为：page/iframe，id为父页面的id。
 
 ### TIPS：
 * #### 本插件的所有实现都建立在浏览器的[同源策略](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)下，不同源的网页或iframe无法使用；
