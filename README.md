@@ -15,7 +15,7 @@
 * #### Easy-to-use API.
 
 ### Installation:
-Using NPM (or YARN) tool to install, or import directly with the `<script>` tag.
+Using NPM (or YARN) tool to install, or import directly with `<script>` tag.
 
 * Module
 ```javascript
@@ -46,6 +46,7 @@ const Transponder = require("web-tab-transponder")
 </script>
 
 <!-- for IE8 -->
+<!-- you must enable "DOM storage" in IE8, see: https://askinglot.com/how-do-i-enable-dom-storage-in-internet-explorer -->
 <script type="text/javascript" src="https://unpkg.com/web-tab-transponder/build/transponder-IE.js"></script>
 
 <script type="text/javascript">

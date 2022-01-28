@@ -2,14 +2,14 @@
 /* eslint-disable no-eval */
 /* eslint-disable no-var */
 /* eslint-disable no-extend-native */
-(function () {
+(function (_self) {
   var thisId
   var storageKey
   var msgCallback
 
   function getIEVersion () {
     var reIE = new RegExp('MSIE (\\d+\\.\\d+);')
-    var match = window.navigator.userAgent.match(reIE)
+    var match = navigator.userAgent.match(reIE)
     var fIEVersion = parseInt(match && match[1])
     return fIEVersion
   }
@@ -65,11 +65,11 @@
   }
 
   function addEvent (event, fn) {
-    document.attachEvent('on' + event, fn.bind(this))
+    document.attachEvent('on' + event, fn)
   }
 
   function removeEvent (event, fn) {
-    document.detachEvent('on' + event, fn.bind(this))
+    document.detachEvent('on' + event, fn)
   }
 
   function setLocal (key, val) {
@@ -85,17 +85,16 @@
   }
 
   function getPageData () {
-    if (window.location) {
-      var href = window.location.href
-      var pathname = window.location.pathname
-      var hostname = window.location.hostname
-      var port = window.location.port
-      var protocol = window.location.protocol
-      var hash = window.location.hash
-      var search = window.location.search
-      return { href: href, pathname: pathname, hostname: hostname, port: port, protocol: protocol, hash: hash, search: search, pagetype: getpagetype() }
-    } else {
-      return {}
+    var l = window.location
+    return {
+      href: l.href,
+      pathname: l.pathname,
+      hostname: l.hostname,
+      port: l.port,
+      protocol: l.protocol,
+      hash: l.hash,
+      search: l.search,
+      pagetype: getpagetype()
     }
   }
 
@@ -146,23 +145,26 @@
   }
 
   StorageTransponder.prototype.messageListener = function () {
-    if (!this.destoryed) {
-      var newValue = window.localStorage.getItem(storageKey)
-      var parsedData = JSON.parse(newValue)
-      if (newValue && parsedData && parsedData.random) {
-        var transferId = parsedData.transferId
-        var data = parsedData.data
-        var from = parsedData.from
-        var buildArgs = { data: data, from: from }
-        // filter data except self
-        var fromId = from.id
-        if (transferId) {
-          fromId !== thisId && transferId === thisId && msgCallback.call(this, buildArgs)
-        } else {
-          fromId !== thisId && msgCallback.call(this, buildArgs)
+    var _this = this
+    setTimeout(function () {
+      if (!_this.destoryed) {
+        var newValue = window.localStorage.getItem(storageKey)
+        var parsedData = JSON.parse(newValue)
+        if (newValue && parsedData && parsedData.random) {
+          var transferId = parsedData.transferId
+          var data = parsedData.data
+          var from = parsedData.from
+          var buildArgs = { data: data, from: from }
+          // filter data except self
+          var fromId = from.id
+          if (transferId) {
+            fromId !== thisId && transferId === thisId && msgCallback.call(_this, buildArgs)
+          } else {
+            fromId !== thisId && msgCallback.call(_this, buildArgs)
+          }
         }
       }
-    }
+    })
   }
 
   StorageTransponder.prototype.onMessage = function (callback) {
@@ -176,5 +178,5 @@
     this.destoryed = true
   }
 
-  window.Transponder = StorageTransponder
-}())
+  _self.Transponder = StorageTransponder
+}(this))

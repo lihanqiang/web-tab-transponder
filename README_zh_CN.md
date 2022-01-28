@@ -45,6 +45,7 @@ const Transponder = require("web-tab-transponder")
 </script>
 
 <!-- for IE8 -->
+<!-- 你要首先勾选IE8的"DOM存储"选项，见：https://askinglot.com/how-do-i-enable-dom-storage-in-internet-explorer -->
 <script type="text/javascript" src="https://unpkg.com/web-tab-transponder/build/transponder-IE.js"></script>
 
 <script type="text/javascript">
