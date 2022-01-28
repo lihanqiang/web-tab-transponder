@@ -17,8 +17,8 @@ type messageDataType = {
 
 declare class Transponder {
   constructor(id: string)
-  send(data: any, toId?: String[] | String): void
-  onMessage(callback?: (data: messageDataType) => void): void
+  send(data: any, toId?: String[] | String): Transponder
+  onMessage(callback?: (data: messageDataType) => void): Transponder
   destory(): void
 }
 

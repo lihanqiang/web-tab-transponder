@@ -107,13 +107,13 @@ childPage.send('I am child')
 </tr>
 <tr>
   <td>send</td>
-  <td>send(data: any, toId?: String[] | String): void</td>
+  <td>send(data: any, toId?: String[] | String): Transponder</td>
   <td>send data to other page(or iframe), param toId is a string[] or string, which has used in other transponder, toId is optional, default will send data to each page (except self) of domain.</td>
   <td>transponder.send(any, ['parent']); transponder.send(any, 'child'); transponder.send(any)</td>
 </tr>
 <tr>
   <td>onMessage</td>
-  <td>onMessage(callback?: Function): void</td>
+  <td>onMessage(callback?: Function): Transponder</td>
   <td>callback of data receiving, param is ({ data, from })</td>
   <td>transponder.onMessage(({ data, from }) => {
     console.log('parent received data: ', { data, from })

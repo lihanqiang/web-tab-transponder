@@ -107,13 +107,13 @@ childPage.send('I am child')
 </tr>
 <tr>
   <td>send</td>
-  <td>send(data: any, toId?: String[] | String): void</td>
+  <td>send(data: any, toId?: String[] | String): Transponder</td>
   <td>向其他页面（或iframe）发送数据，toId为你发送的transponder的id或id数组，toId可以缺省，默认会向主域下的其他页面（本页面不会响应，即触发onMessage回调）发送数据</td>
   <td>transponder.send(any, ['parent']); transponder.send(any, 'child'); transponder.send(any)</td>
 </tr>
 <tr>
   <td>onMessage</td>
-  <td>onMessage(callback?: Function): void</td>
+  <td>onMessage(callback?: Function): Transponder</td>
   <td>接收数据的回调函数，形参为{ data, from }</td>
   <td>transponder.onMessage(({ data, from }) => {
     console.log('parent received data: ', { data, from })
