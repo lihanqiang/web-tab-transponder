@@ -2,6 +2,9 @@
 
 # web-tab-transponder
 
+[![NPM version](https://img.shields.io/npm/v/web-tab-transponder.svg)](https://www.npmjs.com/package/web-tab-transponder)
+![npm](https://img.shields.io/npm/dm/web-tab-transponder)
+
 ### `web-tab-transponder`插件是一个浏览器多标签的交流工具。使用[localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)包装，可满足web多标签、多iframe的通信需求。
 -----------------
 ### 特点：

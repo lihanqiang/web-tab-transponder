@@ -2,6 +2,9 @@
 
 # web-tab-transponder
 
+[![NPM version](https://img.shields.io/npm/v/web-tab-transponder.svg)](https://www.npmjs.com/package/web-tab-transponder)
+![npm](https://img.shields.io/npm/dm/web-tab-transponder)
+
 ### `web-tab-transponder` is a browser tab(or iframe) communication tool, which is built with [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
 -----------------
 ### Features:
