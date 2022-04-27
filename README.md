@@ -22,8 +22,8 @@ Using NPM (or YARN) tool to install, or import directly with `<script>` tag.
 
 * Module
 ```javascript
-// npm/yarn
-npm install web-tab-transponder --save
+// npm / yarn
+npm install web-tab-transponder
 // or 
 yarn add web-tab-transponder
 
@@ -130,7 +130,7 @@ childPage.send('I am child')
 </tr>
 </table>
 
-#### attention: the pattern of `e.from` is: { href, pathname, hostname, port, protocol, hash, search, pagetype, id }, `href, pathname, hostname, port, protocol, hash, search` is parent page's [location](https://developer.mozilla.org/en-US/docs/Web/API/Location) deconstruction, `pagetype` is one of page/iframe, `id` is parent page's id.
+#### attention: the pattern of `e.from` is: { href, pathname, hostname, port, protocol, hash, search, pagetype, id }, `href, pathname, hostname, port, protocol, hash, search` is parent page's [location](https://developer.mozilla.org/en-US/docs/Web/API/Location) deconstruction, `pagetype` is `'page' or 'iframe'`, `id` is parent page's id.
 
 ### TIPS:
 * #### All implementations of this tool are built in the browser [same-origin](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) policy, it can not work if your page is from different sites;

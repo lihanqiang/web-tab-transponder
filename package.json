@@ -1,6 +1,6 @@
 {
   "name": "web-tab-transponder",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "web-tab-transponder",
   "main": "build/transponder.js",
   "scripts": {
@@ -19,7 +19,8 @@
     "iframe",
     "web",
     "tab",
-    "comunicate",
+    "location",
+    "communicate",
     "transpond",
     "callback",
     "storage",
