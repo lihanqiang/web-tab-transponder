@@ -37,14 +37,6 @@ const config = {
         {
           from: path.resolve(__dirname, 'src/transponder-IE.js'),
           to: path.resolve(__dirname, 'build')
-        },
-        {
-          from: path.resolve(__dirname, 'README_zh_CN.md'),
-          to: path.resolve(__dirname, 'build')
-        },
-        {
-          from: path.resolve(__dirname, 'README.md'),
-          to: path.resolve(__dirname, 'build')
         }
       ]
     })
